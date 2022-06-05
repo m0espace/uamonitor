@@ -129,7 +129,7 @@
 	};
 </script>
 
-<div class="rounded-xl mx-24 mb-8 h-64 flex flex-col" style="border: 1px solid lightgrey;">
+<div class="rounded-xl mx-2 md:mx-24 mb-8 h-64 flex flex-col" style="border: 1px solid lightgrey;">
 	<div class="min-w-max basis-1/2 p-4 flex flex-row">
 		<div class="basis-2/3 flex flex-row items-center gap-6">
 			<img
