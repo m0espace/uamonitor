@@ -4,6 +4,11 @@
 
 <svelte:head>
 	<title>UAMonitor</title>
+
+	<meta property="og:url" content="https://stats.m0e.space" />
+	<meta property="og:title" content="UAMonitor" />
+	<meta property="og:description" content="Безкоштовний моніторинг українських серверів" />
+	<meta property="og:image" content="https://stats.m0e.space/favicon.png" />
 </svelte:head>
 
 <header
