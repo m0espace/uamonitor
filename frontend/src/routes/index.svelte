@@ -8,7 +8,7 @@
 			.url(
 				dev
 					? 'http://127.0.0.1:8080/api/graph'
-					: `${browser ? '' : 'http://127.0.0.1:8080'}/api/graph`,
+					: `${browser ? '' : 'http://stats.m0e.space'}/api/graph`,
 				true
 			)
 			.get()
@@ -22,7 +22,7 @@
 					.url(
 						dev
 							? `http://127.0.0.1:8080/api/servers/${server.id}`
-							: `${browser ? '' : 'http://127.0.0.1:8080'}/api/servers/${server.id}`,
+							: `${browser ? '' : 'http://stats.m0e.space'}/api/servers/${server.id}`,
 						true
 					)
 					.get()
