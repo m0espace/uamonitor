@@ -34,11 +34,9 @@
 	};
 </script>
 
-
 <script lang="ts">
 	import ServerCard from '$lib/components/ServerCard.svelte';
 	import type { Server, GraphServer } from '$lib/types';
-import { destroyObjectProperties } from 'highcharts';
 	import { onMount } from 'svelte';
 
 	export let servers: Server[];
@@ -57,7 +55,7 @@ import { destroyObjectProperties } from 'highcharts';
 			else parsedServers = servers;
 		});
 	});
-</svelte:head>
+</script>
 
 <div class="fixed w-14 bottom-5 left-5  z-50 flex flex-col">
 	<a
