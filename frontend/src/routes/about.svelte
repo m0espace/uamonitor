@@ -25,7 +25,7 @@
 		Бажаєте додати/видалити свій сервер або змінити інформацію?
 	</h1>
 	<p class="text-lg">
-		Надішліть повідомлення у <a class="text-blue-600" href="https://t.me/@Andrmist">Telegram</a>,
+		Надішліть повідомлення у <a class="text-blue-600" href="https://t.me/Andrmist">Telegram</a>,
 		Discord: Andrmist(Qugalet)#8967, або ж відкрийте Issue
 	</p>
 </div>
