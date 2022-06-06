@@ -23,6 +23,9 @@ export interface Server {
 	ip: string;
 	port: string;
 	icon: string;
+	link: string;
+	telegram: string;
+	discord: string;
 	statuses: Status[];
 	graph: GraphServer;
 }

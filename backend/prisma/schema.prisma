@@ -17,6 +17,7 @@ model Server {
   discord    String?
   telegram   String?
   icon       String?
+  link       String?
   changeIcon Boolean  @default(true)
 }
 

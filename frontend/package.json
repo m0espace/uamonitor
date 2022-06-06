@@ -37,7 +37,8 @@
 		"@popperjs/core": "^2.10.2",
 		"chart.js": "^3.8.0",
 		"highcharts": "^10.1.0",
-		"svelte-tooltip": "^1.2.0",
+		"sveltejs-tippy": "^3.0.0",
+		"tippy.js": "^6.3.7",
 		"wretch": "^1.7.10"
 	}
 }

@@ -2,6 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 	import { dev, browser } from '$app/env';
 	import api from '$lib/api';
+
 	export const load: Load = async ({ fetch }) => {
 		const servers = await api()
 			.polyfills({ fetch })
@@ -66,7 +67,7 @@
 		<img
 			class="w-8 h-8"
 			src={visible ? '/img/hide.svg' : '/img/show.svg'}
-			alt="Показати сервери офлайн"
+			alt={visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн'}
 		/>
 	</a>
 </div>

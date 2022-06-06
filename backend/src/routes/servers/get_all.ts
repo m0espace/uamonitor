@@ -10,6 +10,9 @@ export default async (server: FastifyInstance) =>
           ip: true,
           port: true,
           icon: true,
+          link: true,
+          discord: true,
+          telegram: true,
           statuses: {
             orderBy: {
               date: 'desc'

@@ -2,12 +2,19 @@
 	import type { Server } from '$lib/types';
 	// import Chart from 'chart.js/auto';
 	import highcharts from '$lib/highcharts';
-	//@ts-ignore
-	import SvelteTooltip from 'svelte-tooltip';
-	export let server: Server;
+
 	import { onMount } from 'svelte';
-	import { text } from 'svelte/internal';
-	import { isClass } from 'highcharts';
+
+	export let server: Server;
+	//@ts-ignore
+	import tippy from 'sveltejs-tippy';
+	import Button from '$lib/components/Button.svelte';
+	import { identity } from 'svelte/internal';
+
+	const tippyProps = {
+		content: server.statuses[0]?.version
+	};
+
 	const config = {
 		credits: undefined,
 		exporting: {
@@ -16,8 +23,8 @@
 		chart: {
 			//styledMode: true,
 			backgroundColor: '#ffffff',
-			spacing: [20, 0, 0, 0],
-			height: 127,
+			spacing: [-10, 0, 0, 0],
+			height: 98,
 			borderRadius: '10px radius'
 		},
 		title: {
@@ -117,47 +124,41 @@
 		]
 	};
 
-	const copy = (
-		text: string,
-		event: MouseEvent & {
-			currentTarget: EventTarget & HTMLInputElement;
-		}
-	) => {
-		navigator.clipboard.writeText(text).then(() => {
-			event.currentTarget;
-		});
+	const copy = (text: string) => {
+		navigator.clipboard.writeText(text);
 	};
 </script>
 
 <div class="rounded-xl mx-2 md:mx-24 mb-8 h-64 flex flex-col" style="border: 1px solid lightgrey;">
-	<div class="min-w-max basis-1/2 p-4 flex flex-row">
+	<div class="min-w-max basis-3/5 px-4 p-4 flex flex-row">
 		<div class="basis-2/3 flex flex-row items-center gap-6">
 			<img
 				class="rounded-lg w-20 h-20"
 				src={server.icon ? server.icon : '/favicon.png'}
 				alt="{server.name} icon"
 			/>
-			<div>
+			<div class="flex flex-col">
 				<h1 class="font-bold text-lg">{server.name}</h1>
 				<div
-					class="transition ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex flex-row gap-2 items-center hover:bg-zinc-300"
+					class="transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300"
 				>
-					<p class="text-sm">
+					<p class="text-sm hidden md:block">
 						{server.ip}{server.port !== '25565' ? `:${server.port}` : ''}
 					</p>
 					<input
-						class="w-5 h-5"
+						class="md:w-5 md:h-5 w-7 h-7"
 						type="image"
 						src="/img/clipboard.svg"
 						value="{server.ip}{server.port !== '25565' ? `:${server.port}` : ''}"
 						alt="Копіювати до буферу обміну"
 						on:click={(event) =>
-							copy(`${server.ip}${server.port !== '25565' ? `:${server.port}` : ''}`, event)}
+							copy(`${server.ip}${server.port !== '25565' ? `:${server.port}` : ''}`)}
+						use:tippy={{ content: 'Копіювати до буферу обміну' }}
 					/>
 				</div>
 			</div>
 		</div>
-		<div class="basis-1/3 flex flex-col items-end">
+		<div class="basis-1/3 flex flex-col items-end flex-wrap grow-0 relative gap-1">
 			{#if server.statuses[0]?.isOnline}
 				<p class="flex flex-row gap-2">
 					Онлайн <span class="block w-4 h-4 mt-1 circle pulse bg-green-600" />
@@ -165,23 +166,30 @@
 				<p class="text-slate-600">
 					{server.statuses[0]?.onlineCount}/{server.statuses[0]?.maxOnline}
 				</p>
-				{#if server.statuses[0]?.version?.length > 12}
-					<SvelteTooltip tip={server.statuses[0]?.version} top>
-						<p class="text-slate-600">
-							{server.statuses[0]?.version?.substring(0, 12).trim()}...
-						</p>
-					</SvelteTooltip>
-				{:else}
-					<p class="text-slate-600">
-						{server.statuses[0]?.version?.trim()}
-					</p>
-				{/if}
+				<p class="text-slate-600 inline-block truncate w-0 min-w-full" use:tippy={tippyProps}>
+					{server.statuses[0]?.version}
+				</p>
 			{:else}
 				<p class="flex flex-row gap-2">
 					Офлайн <span class="block w-4 h-4 mt-1 circle pulse bg-red-600" />
 				</p>
 			{/if}
+			<div class="flex flex-row gap-2">
+				{#if server.link}
+					<Button svg="/img/link.svg" href={server.link} target="blank" />
+				{/if}
+				{#if server.telegram}
+					<Button svg="/img/telegram.svg" href={`https://t.me/${server.telegram}`} target="blank" />
+				{/if}
+				{#if server.discord}
+					<Button
+						svg="/img/discord.svg"
+						href={`https://discord.gg/${server.discord}`}
+						target="blank"
+					/>
+				{/if}
+			</div>
 		</div>
 	</div>
-	<div class="relative min-w-max basis-1/2 rounded-lg" use:highcharts={config} />
+	<div class="relative min-w-max basis-2/5 rounded-lg" use:highcharts={config} />
 </div>
