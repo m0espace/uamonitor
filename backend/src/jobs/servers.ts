@@ -78,5 +78,5 @@ export default async (server: FastifyInstance) =>
     true,
     process.env.TZ,
     null,
-    true
+    false
   );
