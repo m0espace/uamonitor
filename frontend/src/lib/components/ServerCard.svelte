@@ -166,7 +166,10 @@
 				<p class="text-slate-600">
 					{server.statuses[0]?.onlineCount}/{server.statuses[0]?.maxOnline}
 				</p>
-				<p class="text-slate-600 inline-block truncate w-0 min-w-full" use:tippy={tippyProps}>
+				<p
+					class="text-slate-600 inline-block truncate w-0 min-w-full text-right"
+					use:tippy={tippyProps}
+				>
 					{server.statuses[0]?.version}
 				</p>
 			{:else}
