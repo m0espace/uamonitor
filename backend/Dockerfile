@@ -6,4 +6,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "."]
+CMD ["node", "dist"]
