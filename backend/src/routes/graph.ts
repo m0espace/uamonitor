@@ -35,7 +35,11 @@ export default async (server: FastifyInstance) =>
         id: serverDB.id,
         data: statuses
           .filter(status => status.serverId === serverDB.id)
-          .map(({ isOnline, onlineCount, date }) => ({ isOnline, onlineCount, date }))
+          .map(({ isOnline, onlineCount, date }) => ({
+            isOnline,
+            onlineCount: !onlineCount ? 0 : onlineCount,
+            date
+          }))
       };
     });
     await Promise.all(data).then(async res => await reply.send(res));
