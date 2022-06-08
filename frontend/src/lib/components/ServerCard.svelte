@@ -140,13 +140,13 @@
 			<div class="flex flex-col">
 				<h1 class="font-bold text-lg">{server.name}</h1>
 				<div
-					class="transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300"
+					class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300"
 				>
-					<p class="text-sm hidden md:block">
+					<p class="text-sm hidden sm:block">
 						{server.ip}{server.port !== '25565' ? `:${server.port}` : ''}
 					</p>
 					<input
-						class="md:w-5 md:h-5 w-7 h-7"
+						class="sm:w-5 sm:h-5 w-7 h-7"
 						type="image"
 						src="/img/clipboard.svg"
 						value="{server.ip}{server.port !== '25565' ? `:${server.port}` : ''}"
