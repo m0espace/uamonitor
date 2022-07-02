@@ -8,14 +8,10 @@ COPY ./package.json ./
 
 RUN pnpm install
 
-COPY ./prisma/schema.prisma ./
-
-RUN npm run generate
-
 COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
+EXPOSE 3000
 
-CMD ["node", "dist"]
+CMD ["node", "build"]
