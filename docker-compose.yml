@@ -6,7 +6,7 @@ services:
     ports:
       - 9019:8080
     env_file:
-      - ./.env.backend
+      - ./backend/.env
   frontend:
     build: frontend
     restart: unless-stopped
