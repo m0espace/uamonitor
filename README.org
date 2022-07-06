@@ -1,6 +1,8 @@
 ** UAMonitor
 UAMonitor - FOSS minecraft monitoring web service originally made for ukrainians
+
 It pings all servers from DB every 10 minutes and writes results into DB (WIP autoremove)
+
 Backend was made using [[https://www.fastify.io/][Fastify]] as framework and [[https://prisma.io][Prisma]] as ORM, Frontend was made using [[https://kit.svelte.dev/][SvelteKit]] as framework and [[https://tailwindcss.com/][TailwindCSS]].
 
 ** Install
