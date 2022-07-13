@@ -4,13 +4,13 @@ services:
     build: backend
     restart: unless-stopped
     ports:
-      - ${BACKEND_PORT:9012}:8080
+      - "9012:8080"
     env_file:
       - ./backend/.env
   frontend:
     build: frontend
     restart: unless-stopped
     ports:
-      - ${FRONTEND_PORT:9013}:3000
+      - "9013:3000"
     depends_on:
       - backend
