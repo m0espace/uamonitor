@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsc -w",
     "generate": "prisma generate",
+    "migrate": "prisma migrate deploy",
     "build": "rm -rf ./dist/ && tsc",
     "start": "node ./dist/",
     "lint": "prettier --check src && eslint src"

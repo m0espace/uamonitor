@@ -10,6 +10,8 @@ RUN pnpm install
 
 COPY ./prisma/schema.prisma ./
 
+RUN npm run migrate
+
 RUN npm run generate
 
 COPY . .

@@ -12,7 +12,7 @@
 </svelte:head>
 
 <header
-	class="p-6 mt-2 mb-8 max-h-16 md:rounded-xl md:max-w-3xl max-w-full mx-auto bg-white rounded-none shadow-lg flex flex-row justify-start gap-5 items-center"
+	class="p-6 mt-2 mb-4 max-h-16 md:rounded-xl md:max-w-3xl max-w-full mx-auto bg-white rounded-none shadow-lg flex flex-row justify-start gap-5 items-center"
 >
 	<div class="flex flex-row basis-1/3 justify-start gap-5 items-center">
 		<a href="/" class="focusable object-scale-down">
@@ -27,4 +27,14 @@
 	</div>
 </header>
 
-<slot />
+<div class="p-4 border rounded text-amber-700 bg-amber-50 border-amber-900/10" role="alert">
+	<strong class="text-md font-medium"
+		>З'явився телеграм канал з новинами розробки та обговореннями: <a
+			class="text-blue-600"
+			href="https://t.me/uamonitor_news">@uamonitor_news</a
+		></strong
+	>
+</div>
+<div class="mt-4">
+	<slot />
+</div>

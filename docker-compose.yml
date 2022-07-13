@@ -6,7 +6,7 @@ services:
     ports:
       - ${BACKEND_PORT:9012}:8080
     env_file:
-      - ./.env.backend
+      - ./backend/.env
   frontend:
     build: frontend
     restart: unless-stopped

@@ -1,1 +1,120 @@
-скоро напишу :P
+** UAMonitor
+UAMonitor - FOSS minecraft monitoring web service originally made for ukrainians
+
+It pings all servers from DB every 10 minutes and writes results into DB (WIP autoremove)
+
+Backend was made using [[https://www.fastify.io/][Fastify]] as framework and [[https://prisma.io][Prisma]] as ORM, Frontend was made using [[https://kit.svelte.dev/][SvelteKit]] as framework and [[https://tailwindcss.com/][TailwindCSS]].
+
+** Install
+You can install manually or build docker container
+
+*** Install manually
+#+BEGIN_SRC shell
+  # clone repo
+  git clone https://github.com/Andrmist/uamonitor.git
+  # move to directory
+  cd uamonitor
+  # install depenencies (pnpm recommended)
+  pnpm install
+  # or (not tested)
+  cd backend && npm install
+  cd ..
+  cd frontend && npm install
+  cd ..
+  # move to backend and build
+  cd backend
+  npm run migrate
+  npm run generate
+  npm run build
+  # move to frontend and build
+  cd frontend
+  npm run build
+#+END_SRC
+
+*** Configure
+Currently, only way to configure is editing ~.env~ file in ~/backend~
+*But you must configure ~.env~ file before start otherwise it won't work*
+
+*** Start
+#+BEGIN_SRC shell
+  cd backend
+  npm start
+  cd frontend
+  node ./build
+#+END_SRC
+
+*** Docker method
+Before executing next commands, make sure that you cloned repository and changed values in ~.env~ in ~/backend~
+Also check ~docker-compose.yml~ for changing port forwarding and other settings.
+#+BEGIN_SRC shell
+  docker compose up -d --build --remove-orphans -d backend frontend
+#+END_SRC
+
+** API
+- ~/api/graph~
+  Returns graph servers graph data for last 24 hours:
+  #+BEGIN_SRC json
+    [
+        {
+            "id": 3,
+            "data": [
+                {
+                    "isOnline": true, 
+                    "onlineCount": 12,
+                    "date": "2022-07-06T21:40:00.483Z"
+                },
+            //...
+            ]
+        },
+        //...
+    ]
+  #+END_SRC
+- ~/api/servers~
+  Returns status of all servers in DB
+  #+BEGIN_SRC json
+    [
+        {
+            "id": 3,
+            "name": "Ukraine State",
+            "ip": "play.ukr-state.fun",
+            "port": "25565",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAvUlEQVR4Xu3RwQnCUBBF0RdjD+6sy/DFAizMGgQ/uksDYoI7+wj63b8UMFwYOJs7u8eoKxVN6xNLDoiWA6LlgGg5IFoOiJYDouWAaDkgWg6IlgOi5YBo6oeKJh3vbDpd2TaHB5r6UtGkcmNbP4VF+/MFTZ9xh6ZlZlN7sek3s+n7ZlN7btHUJjYtU4fmg3C8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxx/nK3aBo18jm7AAAAAElFTkSuQmCC",
+            "link": null, // server website link if present
+            "discord": "hE6cQXy2Uu", // server discord invite (https://discord.gg/<discord>)
+            "telegram": "ukr_state", // server telegram invite (https://t.me/<telegram>)
+            "statuses": [
+                {
+                    "date": "2022-07-06T21:40:00.483Z",
+                    "isOnline": true,
+                    "onlineCount": 12,
+                    "maxOnline": 100,
+                    "version": "Purpur 1.18.2"
+                }
+            ]
+        },
+        //....
+    ]
+  #+END_SRC
+- ~/api/servers/<id>~
+  Returns server status for server id:
+  #+BEGIN_SRC json
+        {
+            "id": 3,
+            "name": "Ukraine State",
+            "ip": "play.ukr-state.fun",
+            "port": "25565",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAvUlEQVR4Xu3RwQnCUBBF0RdjD+6sy/DFAizMGgQ/uksDYoI7+wj63b8UMFwYOJs7u8eoKxVN6xNLDoiWA6LlgGg5IFoOiJYDouWAaDkgWg6IlgOi5YBo6oeKJh3vbDpd2TaHB5r6UtGkcmNbP4VF+/MFTZ9xh6ZlZlN7sek3s+n7ZlN7btHUJjYtU4fmg3C8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxxvHG8cbxx/nK3aBo18jm7AAAAAElFTkSuQmCC",
+            "link": null, // server website link if present
+            "discord": "hE6cQXy2Uu", // server discord invite (https://discord.gg/<discord>)
+            "telegram": "ukr_state", // server telegram invite (https://t.me/<telegram>)
+            "statuses": [
+                {
+                    "date": "2022-07-06T21:40:00.483Z",
+                    "isOnline": true,
+                    "onlineCount": 12,
+                    "maxOnline": 100,
+                    "version": "Purpur 1.18.2"
+                }
+            ]
+        }
+#+END_SRC
