@@ -137,8 +137,10 @@
 				src={server.icon ? server.icon : '/favicon.png'}
 				alt="{server.name} icon"
 			/>
-			<div class="flex flex-col">
-				<h1 class="font-bold text-lg">{server.name}</h1>
+			<div class="flex flex-col w-full">
+				<h1 class="font-bold text-lg truncate w-0 min-w-full" use:tippy={{ content: server.name }}>
+					{server.name}
+				</h1>
 				<div
 					class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300"
 				>

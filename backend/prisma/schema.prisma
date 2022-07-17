@@ -14,11 +14,12 @@ model Server {
   ip         String
   port       String
   statuses   Status[]
-  discord    String?
-  telegram   String?
   icon       String?
-  link       String?
   changeIcon Boolean  @default(true)
+  telegram   String?
+  discord    String?
+  youtube    String?
+  link       String?
 }
 
 model Status {
