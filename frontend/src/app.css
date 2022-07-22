@@ -26,3 +26,6 @@ body {
     }
   }
   
+.chart {
+  touch-action: none;
+}

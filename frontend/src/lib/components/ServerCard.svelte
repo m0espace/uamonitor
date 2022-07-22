@@ -196,5 +196,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="relative min-w-max basis-2/5 rounded-lg" use:highcharts={config} />
+	<div class="relative min-w-max basis-2/5 rounded-lg chart" use:highcharts={config} />
 </div>
