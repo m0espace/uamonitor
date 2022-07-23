@@ -1,6 +1,6 @@
 <script lang="ts">
 	//@ts-ignore
-	import tippy from 'sveltejs-tippy';
+	import tippy from 'svelte-tippy';
 
 	export let svg: string;
 	export let text = '';

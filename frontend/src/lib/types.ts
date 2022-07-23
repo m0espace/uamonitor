@@ -9,13 +9,21 @@ export interface GraphServer {
 	data: GraphPointData[];
 }
 
-export interface Status {
+export interface OfflineStatus {
 	date: string;
-	isOnline: boolean;
-	onlineCount: number | null;
-	maxOnline: number | null;
-	version: string | null;
+	isOnline: false;
+	onlineCount: 0;
 }
+
+export interface OnlineStatus {
+	date: string;
+	isOnline: true;
+	onlineCount: number;
+	maxOnline: number;
+	version: string;
+}
+
+export type Status = OfflineStatus | OnlineStatus;
 
 export interface Server {
 	id: number;

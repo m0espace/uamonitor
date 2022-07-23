@@ -2,7 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 	import { dev, browser } from '$app/env';
 	import api from '$lib/api';
-	import tippy from 'sveltejs-tippy';
+	import tippy from 'svelte-tippy';
 
 	export const load: Load = async ({ fetch }) => {
 		const servers = await api()
@@ -64,11 +64,14 @@
 		href="#"
 		class="transition ease-in-out delay-50 rounded-lg bg-zinc-300 h-14 flex justify-center items-center hover:bg-zinc-400"
 		on:click={() => (visible = !visible)}
+		use:tippy={{
+			content: visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн',
+			animation: 'shift-away-extreme'
+		}}
 	>
 		<img
 			class="w-8 h-8"
 			src={visible ? '/img/hide.svg' : '/img/show.svg'}
-			use:tippy={{ content: visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн' }}
 			alt={visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн'}
 		/>
 	</a>

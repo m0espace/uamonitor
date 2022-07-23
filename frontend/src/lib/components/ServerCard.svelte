@@ -1,21 +1,15 @@
 <script lang="ts">
 	import type { Server } from '$lib/types';
-	// import Chart from 'chart.js/auto';
+	import type { Options as HighChartsOptions } from 'highcharts';
 	import highcharts from '$lib/highcharts';
 
 	import { onMount } from 'svelte';
 
 	export let server: Server;
-	//@ts-ignore
-	import tippy from 'sveltejs-tippy';
+	import tippy from 'svelte-tippy';
 	import Button from '$lib/components/Button.svelte';
-	import { identity } from 'svelte/internal';
 
-	const tippyProps = {
-		content: server.statuses[0]?.version
-	};
-
-	const config = {
+	const config: HighChartsOptions = {
 		credits: undefined,
 		exporting: {
 			enabled: false
@@ -25,7 +19,7 @@
 			backgroundColor: '#ffffff',
 			spacing: [-10, 0, 0, 0],
 			height: 98,
-			borderRadius: '10px radius'
+			borderRadius: 10
 		},
 		title: {
 			style: {
@@ -137,7 +131,7 @@
 				src={server.icon ? server.icon : '/favicon.png'}
 				alt="{server.name} icon"
 			/>
-			<div class="flex flex-col w-full">
+			<div class="flex flex-col w-full gap-2">
 				<h1 class="font-bold text-lg truncate w-0 min-w-full" use:tippy={{ content: server.name }}>
 					{server.name}
 				</h1>
@@ -155,7 +149,7 @@
 						alt="Копіювати до буферу обміну"
 						on:click={(event) =>
 							copy(`${server.ip}${server.port !== '25565' ? `:${server.port}` : ''}`)}
-						use:tippy={{ content: 'Копіювати до буферу обміну' }}
+						use:tippy={{ content: 'Копіювати до буферу обміну', animation: 'shift-away-extreme' }}
 					/>
 				</div>
 			</div>
@@ -170,12 +164,12 @@
 				</p>
 				<p
 					class="text-slate-600 inline-block truncate w-0 min-w-full text-right"
-					use:tippy={tippyProps}
+					use:tippy={{ content: server.statuses[0]?.version }}
 				>
 					{server.statuses[0]?.version}
 				</p>
 			{:else}
-				<p class="flex flex-row gap-2">
+				<p class="flex flex-row gap-2 mb-5">
 					Офлайн <span class="block w-4 h-4 mt-1 circle pulse bg-red-600" />
 				</p>
 			{/if}
