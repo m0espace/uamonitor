@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500&display=swap');
+@import url('tippy.js/dist/tippy.css');
+@import url('tippy.js/animations/shift-away-extreme.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
