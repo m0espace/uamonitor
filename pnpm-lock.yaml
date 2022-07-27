@@ -21,6 +21,7 @@ importers:
       prettier-plugin-svelte: ^2.7.0
       svelte: ^3.49.0
       svelte-check: ^2.8.0
+      svelte-markdown: ^0.2.2
       svelte-preprocess: ^4.10.7
       svelte-tippy: ^1.3.2
       tailwindcss: ^3.1.6
@@ -37,7 +38,7 @@ importers:
       tippy.js: 6.3.7
       wretch: 1.7.10
     devDependencies:
-      '@sveltejs/adapter-auto': 1.0.0-next.63
+      '@sveltejs/adapter-auto': 1.0.0-next.64
       '@sveltejs/adapter-node': 1.0.0-next.83
       '@sveltejs/kit': 1.0.0-next.391_svelte@3.49.0+vite@3.0.2
       '@typescript-eslint/eslint-plugin': 5.30.7_cedektzxz37523qbpytbckztui
@@ -51,6 +52,7 @@ importers:
       prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
       svelte: 3.49.0
       svelte-check: 2.8.0_nxvsp6sjiltnatqa6jdm4mr6zu
+      svelte-markdown: 0.2.2_svelte@3.49.0
       svelte-preprocess: 4.10.7_2guo3zspfgvw6oxd2vitq7lsrm
       tailwindcss: 3.1.6
       tslib: 2.4.0
@@ -166,27 +168,27 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.63:
-    resolution: {integrity: sha512-9KguXwROEJMyyoKrsizAilVSmtfWxEDn2Hbxk44SP8Kj5cgN7tFCxzbL2kmmqyV1CO1tOh5iNC2oWbyTfikXmw==}
+  /@sveltejs/adapter-auto/1.0.0-next.64:
+    resolution: {integrity: sha512-Q8DwcS6wl1GovzS9JJzaD/WL/Lfk1ur4nAF1HtmsUvZDpsPBVDqnK2AhYU4G3oFNiuHstrjAogMy5th8ptSFGw==}
     dependencies:
-      '@sveltejs/adapter-cloudflare': 1.0.0-next.30
-      '@sveltejs/adapter-netlify': 1.0.0-next.70
-      '@sveltejs/adapter-vercel': 1.0.0-next.65
+      '@sveltejs/adapter-cloudflare': 1.0.0-next.31
+      '@sveltejs/adapter-netlify': 1.0.0-next.71
+      '@sveltejs/adapter-vercel': 1.0.0-next.66
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  /@sveltejs/adapter-cloudflare/1.0.0-next.30:
-    resolution: {integrity: sha512-jIclgb58n3Uoo8TTudXSa7wmLP7Rn/ESLQS+zOUe0xsti5DG/eDhELTnSvkoSa2lJY21ym5rej/GSERRyeuBVw==}
+  /@sveltejs/adapter-cloudflare/1.0.0-next.31:
+    resolution: {integrity: sha512-HhEFZP72GJ8AZGgFECKIiayDcLaAWi65pI0AnBfiNhCifYSlH/mPNWNVD4AWRDnXnH6XU+FLwhGDnIDwytTyYg==}
     dependencies:
       '@cloudflare/workers-types': 3.14.1
       esbuild: 0.14.49
       worktop: 0.8.0-next.14
     dev: true
 
-  /@sveltejs/adapter-netlify/1.0.0-next.70:
-    resolution: {integrity: sha512-lIXY6KIgIFBz4+mdvilx9Ny8oFV7T2iVTKLirJayoI/SqPWGAcxklvWvjGfS4QT8rS9pWKDaKRUQM4M/gl8LlA==}
+  /@sveltejs/adapter-netlify/1.0.0-next.71:
+    resolution: {integrity: sha512-la1CGtWO1xul1L3zEoFAoc4EX2uxZjrZcOMS3tkKB8drxhbQsNbnTE6fmSSMFiZXhxaikczrBgQwqIaDkLTmZg==}
     dependencies:
       '@iarna/toml': 2.2.5
       esbuild: 0.14.49
@@ -200,10 +202,10 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.65:
-    resolution: {integrity: sha512-RV3HL7Ic7pGgIoBSHPwN1pBX96Km1X683oHImPHAKX9h/WOvJZ3bY5+IWNRcR8tx9rPB5gfMRg+msvPSBr3RVw==}
+  /@sveltejs/adapter-vercel/1.0.0-next.66:
+    resolution: {integrity: sha512-s3Hcxu9nCG/rR3C3cFbdQGjTa5W4K2kRcc6S5Xefx7itbrw+4v3KpO8ZPB6qM55XDwVxuG7260NMHVI6MUGmSA==}
     dependencies:
-      '@vercel/nft': 0.20.1
+      '@vercel/nft': 0.21.0
       esbuild: 0.14.49
     transitivePeerDependencies:
       - encoding
@@ -253,6 +255,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/marked/4.0.3:
+    resolution: {integrity: sha512-HnMWQkLJEf/PnxZIfbm0yGJRRZYYMhb++O9M36UCTA9z53uPvVoSlAwJr3XOpDEryb7Hwl1qAx/MV6YIW1RXxg==}
     dev: true
 
   /@types/node/18.0.6:
@@ -395,12 +401,13 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vercel/nft/0.20.1:
-    resolution: {integrity: sha512-hSLcr64KHOkcNiTAlv154K4p4faEFBwYIi2eIgu1QCDhB1qyQYvFuEhtw3eaapNjA4/7x/2jcclfCAjILua/ag==}
+  /@vercel/nft/0.21.0:
+    resolution: {integrity: sha512-hFCAETfI5cG8l5iAiLhMC2bReC5K7SIybzrxGorv+eGspIbIFsVw7Vg85GovXm/LxA08pIDrAlrhR6GN36XB/Q==}
     hasBin: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.9
       acorn: 8.8.0
+      async-sema: 3.1.1
       bindings: 1.5.0
       estree-walker: 2.0.2
       glob: 7.2.3
@@ -512,6 +519,10 @@ packages:
   /array-union/2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
+    dev: true
+
+  /async-sema/3.1.1:
+    resolution: {integrity: sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==}
     dev: true
 
   /autoprefixer/10.4.7_postcss@8.4.14:
@@ -1428,6 +1439,12 @@ packages:
       semver: 6.3.0
     dev: true
 
+  /marked/4.0.18:
+    resolution: {integrity: sha512-wbLDJ7Zh0sqA0Vdg6aqlbT+yPxqLblpAZh1mK2+AO2twQkPywvvqQNfEPVwSSRjZ7dZcdeVBIAgiO7MMp3Dszw==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: true
+
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
@@ -1980,6 +1997,16 @@ packages:
     peerDependencies:
       svelte: '>=3.19.0'
     dependencies:
+      svelte: 3.49.0
+    dev: true
+
+  /svelte-markdown/0.2.2_svelte@3.49.0:
+    resolution: {integrity: sha512-bNxpG3gRbC2UjAFakIMcLEzVq5db2Md57aeU4wKCuffSfD6f7RkvtYDqbrAk2ycC55t3wykOy0E7KDuvVKyDYA==}
+    peerDependencies:
+      svelte: ^3.0.0
+    dependencies:
+      '@types/marked': 4.0.3
+      marked: 4.0.18
       svelte: 3.49.0
     dev: true
 

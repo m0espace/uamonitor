@@ -9,17 +9,18 @@ datasource db {
 }
 
 model Server {
-  id         Int      @id @default(autoincrement())
-  name       String
-  ip         String
-  port       String
-  statuses   Status[]
-  icon       String?
-  changeIcon Boolean  @default(true)
-  telegram   String?
-  discord    String?
-  youtube    String?
-  link       String?
+  id          Int      @id @default(autoincrement())
+  name        String
+  ip          String
+  port        String
+  statuses    Status[]
+  icon        String?
+  changeIcon  Boolean  @default(true)
+  telegram    String?
+  discord     String?
+  youtube     String?
+  link        String?
+  description String?
 }
 
 model Status {

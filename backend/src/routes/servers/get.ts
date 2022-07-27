@@ -28,6 +28,7 @@ export default async (server: FastifyInstance) =>
           link: true,
           discord: true,
           telegram: true,
+          youtube: true,
           statuses: {
             orderBy: {
               date: 'desc'
