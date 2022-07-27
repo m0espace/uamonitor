@@ -1,6 +1,5 @@
 import { CronJob } from 'cron';
 import { FastifyInstance } from 'fastify';
-import axios from 'axios';
 import { status } from 'minecraft-server-util';
 
 export default async (server: FastifyInstance) =>
@@ -72,7 +71,6 @@ export default async (server: FastifyInstance) =>
         })
       );
       console.log('pinged servers');
-      server.websocketServer.clients.forEach(client => client.send(servers));
     },
     null,
     true,

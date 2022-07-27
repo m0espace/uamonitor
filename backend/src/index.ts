@@ -5,10 +5,8 @@ import fastifyAutoload from '@fastify/autoload';
 import { PrismaClient } from '@prisma/client';
 import fastifySchedule from '@fastify/schedule';
 import fastifyCors from '@fastify/cors';
-import fastifyWebSocket from '@fastify/websocket';
 
 import path = require('path');
-import { appendFile } from 'fs';
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -31,7 +29,6 @@ fastify({
   .decorate('db', new PrismaClient())
   .addHook('onRoute', route => console.log(route.url))
   .register(fastifySchedule)
-  .register(fastifyWebSocket)
   .register(fastifyCors, {
     origin: ['http://127.0.0.1:3000'],
     credentials: true
