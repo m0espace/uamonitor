@@ -14,11 +14,12 @@ declare module 'fastify' {
   }
 }
 
-namespace NodeJS {
-  interface ProcessEnv {
-    NODE_ENV: 'development' | 'production';
-    TZ: string;
-    PORT: number;
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      NODE_ENV: 'development' | 'production';
+      PORT: number;
+    }
   }
 }
 
