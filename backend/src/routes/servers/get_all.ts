@@ -7,6 +7,7 @@ export default async (server: FastifyInstance) =>
         select: {
           id: true,
           name: true,
+          description: true,
           ip: true,
           port: true,
           icon: true,
