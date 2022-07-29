@@ -8,6 +8,8 @@
   import Button from '$lib/components/Button.svelte';
   import Modal from './Modal.svelte';
   import Markdown from './Markdown.svelte';
+  import { theme } from '$lib/stores';
+  import { onMount } from 'svelte';
 
   const config: HighChartsOptions = {
     credits: undefined,
@@ -16,7 +18,7 @@
     },
     chart: {
       //styledMode: true,
-      backgroundColor: '#ffffff',
+      backgroundColor: $theme === 'dark' ? 'var(--color-neutral-900)' : '#ffffff',
       spacing: [0, 0, 0, 0],
       height: 98,
       borderRadius: 10
@@ -57,7 +59,7 @@
     },
     plotOptions: {
       area: {
-        fillColor: 'var(--color-green-400)',
+        fillColor: 'var(--color-green-500)',
         fillOpacity: 0.57,
         states: {
           hover: {
@@ -95,7 +97,7 @@
       headerFormat: '<span>{point.key}</span><br>',
       pointFormat: '<span>Гравців: {point.y}</span>',
       shadow: false,
-      backgroundColor: 'var(--color-neutral-900)',
+      backgroundColor: $theme === 'dark' ? 'var(--color-slate-600)' : 'var(--color-neutral-900)',
       style: {
         color: 'var(--color-white)',
         // fontWeight: 'bold',
@@ -122,13 +124,26 @@
     navigator.clipboard.writeText(text);
   };
   let isModalOpen = false;
-  const mdtext = `# Test
 
-  We are testing descriptions
-  `;
+  theme.subscribe(
+    value =>
+      config &&
+      config.chart &&
+      config.tooltip &&
+      (config.chart.backgroundColor = $theme === 'dark' ? 'var(--color-neutral-900)' : '#ffffff') &&
+      (config.tooltip.backgroundColor =
+        $theme === 'dark' ? 'var(--color-slate-600)' : 'var(--color-neutral-900)')
+  );
+
+  // onMount(() => window.onresize = () => config.);
 </script>
 
-<div class="rounded-xl mx-2 md:mx-24 mb-8 h-64 flex flex-col" style="border: 1px solid lightgrey;">
+<div
+  class="rounded-xl mx-2 md:mx-24 mb-8 h-64 flex flex-col dark:bg-neutral-900 bg-white dark:text-slate-200 shadow-lg"
+  style={$theme === 'dark'
+    ? 'border: 1px solid var(--color-gray-800)'
+    : 'border: 1px solid lightgrey;'}
+>
   <div class="min-w-max basis-3/5 px-4 p-4 flex flex-row">
     <div class="basis-2/3 flex flex-row items-center gap-6">
       <a class="w-24 rounded-lg" href="#" on:click={() => (isModalOpen = true)}>
@@ -136,17 +151,20 @@
       </a>
 
       <div class="flex flex-col w-full gap-2">
-        <h1 class="font-bold text-lg truncate w-0 min-w-full" use:tippy={{ content: server.name }}>
+        <h1
+          class="font-bold text-lg truncate w-0 min-w-full drop-shadow-none"
+          use:tippy={{ content: server.name }}
+        >
           {server.name}
         </h1>
         <div
-          class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300"
+          class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300 shadow-md"
         >
-          <p class="text-sm hidden sm:block">
+          <p class="text-sm hidden sm:block dark:text-black">
             {server.ip}{server.port !== '25565' ? `:${server.port}` : ''}
           </p>
           <input
-            class="sm:w-5 sm:h-5 w-7 h-7"
+            class="sm:w-5 sm:h-5 w-7 h-7 "
             type="image"
             src="/img/clipboard.svg"
             value="{server.ip}{server.port !== '25565' ? `:${server.port}` : ''}"
@@ -163,11 +181,11 @@
         <p class="flex flex-row gap-2">
           Онлайн <span class="block w-4 h-4 mt-1 circle pulse bg-green-600" />
         </p>
-        <p class="text-slate-600">
+        <p class="text-slate-600 dark:text-slate-400">
           {server.statuses[0]?.onlineCount}/{server.statuses[0]?.maxOnline}
         </p>
         <p
-          class="text-slate-600 inline-block truncate w-0 min-w-full text-right"
+          class="text-slate-600 dark:text-slate-400 inline-block truncate w-0 min-w-full text-right"
           use:tippy={{ content: server.statuses[0]?.version }}
         >
           {server.statuses[0]?.version}
@@ -177,7 +195,7 @@
           Офлайн <span class="block w-4 h-4 mt-1 circle pulse bg-red-600" />
         </p>
       {/if}
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row gap-2 drop-shadow-md">
         {#if server.link}
           <Button svg="/img/link.svg" href={server.link} target="blank" />
         {/if}

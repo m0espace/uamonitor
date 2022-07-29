@@ -20,9 +20,11 @@
   <dialog
     bind:this={dialog}
     on:click={event => (event.target === dialog ? close(false) : '')}
-    class="fixed my-auto w-full max-w-xl space-y-3 rounded-xl bg-zinc-200 p-4 backdrop:bg-black backdrop:bg-opacity-50"
+    class="fixed my-auto w-full max-w-xl space-y-3 rounded-xl bg-zinc-200 dark:bg-zinc-800 p-4 backdrop:bg-black backdrop:bg-opacity-50"
   >
-    <h1 class="flex items-center justify-between gap-4 text-2xl text-black font-bold">
+    <h1
+      class="flex items-center justify-between gap-4 text-2xl text-black dark:text-white font-bold"
+    >
       {title}
     </h1>
     <slot />

@@ -18,12 +18,22 @@ body {
 .pulse {
   animation: pulse-animation 2s infinite;
 }
-@keyframes pulse-animation {
+
+/* @keyframes pulse-animation {
   0% {
     box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
   }
   100% {
     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+} */
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 255, 0, 0);
   }
 }
 
@@ -34,6 +44,7 @@ body {
 dialog[open] {
   animation: show 1s ease normal;
 }
+
 @keyframes show {
   from {
     transform: translateY(-50%);
@@ -41,4 +52,8 @@ dialog[open] {
   to {
     transform: translateY(0%);
   }
+}
+
+a {
+  @apply text-blue-600;
 }

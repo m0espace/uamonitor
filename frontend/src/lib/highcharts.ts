@@ -6,6 +6,8 @@ export default (node: HTMLDOMElement, config: Options) => {
   const oneToOne = true;
   const chart = Highcharts.chart(node, config);
 
+  window.addEventListener('resize', () => chart.update(config, redraw, true));
+
   return {
     update(config: Options) {
       chart.update(config, redraw, oneToOne);

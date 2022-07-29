@@ -7,4 +7,4 @@
   const result = DOMPurify.sanitize(marked(md));
 </script>
 
-<div class="prose">{@html result}</div>
+<div class="prose dark:prose-invert">{@html result}</div>
