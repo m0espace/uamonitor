@@ -1,6 +1,4 @@
-import fastify, { FastifyInstance } from 'fastify';
-// @ts-ignore
-import ajvErrors from 'ajv-errors';
+import fastify from 'fastify';
 import fastifyAutoload from '@fastify/autoload';
 import { PrismaClient } from '@prisma/client';
 import fastifySchedule from '@fastify/schedule';
@@ -24,8 +22,8 @@ declare global {
 }
 
 fastify({
-  logger: { prettyPrint: true },
-  ajv: { plugins: [ajvErrors], customOptions: { allErrors: true } }
+  logger: true,
+  ajv: { customOptions: { allErrors: true } }
 })
   .decorate('db', new PrismaClient())
   .addHook('onRoute', route => console.log(route.url))

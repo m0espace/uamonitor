@@ -13,15 +13,13 @@ module.exports = {
   rules: {
     yoda: 'error',
     eqeqeq: 'error',
-    'one-var': 'warn',
-    camelcase: 'error',
     complexity: 'error',
-    'no-console': 'warn',
     'prefer-const': 'error',
     'prefer-template': 'error',
     'object-shorthand': 'warn',
     'prettier/prettier': 'warn',
     'prefer-destructuring': 'warn',
-    'prefer-arrow-callback': 'error'
+    'prefer-arrow-callback': 'error',
+    '@typescript-eslint/no-namespace': 'off'
   }
 };
