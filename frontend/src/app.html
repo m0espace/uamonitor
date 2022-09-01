@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script>
+      document.documentElement.className = window.localStorage.getItem('theme')
+    </script>
     %sveltekit.head%
   </head>
   <body class="mx-auto md:max-w-3xl max-w-full dark:bg-zinc-800 overflow-x-hidden scroll-smooth ">
