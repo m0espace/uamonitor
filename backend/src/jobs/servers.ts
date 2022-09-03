@@ -15,7 +15,7 @@ export default async (server: FastifyInstance) =>
           changeIcon: true
         }
       });
-      const servers = await Promise.all(
+      await Promise.all(
         serversDB.map(async serverDB => {
           return status(serverDB.ip, parseInt(serverDB.port), {
             timeout: 5000,
@@ -55,7 +55,7 @@ export default async (server: FastifyInstance) =>
                 data: statusDB
               };
             })
-            .catch(async res => {
+            .catch(async () => {
               console.log(`${serverDB.id} is offline`);
               await server.db.status.create({
                 data: {

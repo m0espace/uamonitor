@@ -1,7 +1,8 @@
 <script lang="ts">
-  import '../app.css';
+  import '../../app.css';
+  import './body.css';
   import { theme } from '$lib/stores';
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
 
   $: browser && (document.documentElement.className = $theme);
 </script>

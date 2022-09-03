@@ -124,6 +124,7 @@
     navigator.clipboard.writeText(text);
   };
   let isModalOpen = false;
+  export let embed = false;
 
   theme.subscribe(
     value =>
@@ -139,10 +140,7 @@
 </script>
 
 <div
-  class="rounded-xl mx-2 md:mx-24 mb-8 h-64 flex flex-col dark:bg-neutral-900 bg-white dark:text-slate-200 shadow-lg"
-  style={$theme === 'dark'
-    ? 'border: 1px solid var(--color-gray-800)'
-    : 'border: 1px solid lightgrey;'}
+  class="rounded-xl h-64 flex flex-col dark:bg-neutral-900 bg-white dark:border-gray-900 border-zinc-200 border dark:text-slate-200 shadow-lg"
 >
   <div class="min-w-max basis-3/5 px-4 p-4 flex flex-row">
     <div class="basis-2/3 flex flex-row items-center gap-6">
@@ -225,6 +223,8 @@
   <div class="relative min-w-max basis-2/5 rounded-lg chart" use:highcharts={config} />
 </div>
 
-<Modal bind:open={isModalOpen} title={server.name}>
-  <Markdown md={server.description ? server.description : 'Сервер опису не надав'} />
-</Modal>
+{#if !embed}
+  <Modal bind:open={isModalOpen} title={server.name} type="server" server_id={server.id}>
+    <Markdown md={server.description ? server.description : `Сервер опису не надав`} />
+  </Modal>
+{/if}

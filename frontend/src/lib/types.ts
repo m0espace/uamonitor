@@ -39,3 +39,7 @@ export interface Server {
   statuses: Status[];
   graph: GraphServer;
 }
+
+export interface ParsedServer extends Server {
+  graph: GraphServer;
+}

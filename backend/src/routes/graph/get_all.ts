@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 export default async (server: FastifyInstance) =>
-  server.get('/graph', async (req, reply) => {
+  server.get('/', async (req, reply) => {
     const servers = await server.db.server.findMany({
       select: {
         id: true
@@ -29,7 +29,7 @@ export default async (server: FastifyInstance) =>
             date: 'desc'
           }
         })
-      ).filter(stat => stat.date.getMinutes() % 10 == 0);
+      ).filter(stat => stat.date.getMinutes() % 10 === 0);
       // console.log(statuses);
       return {
         id: serverDB.id,

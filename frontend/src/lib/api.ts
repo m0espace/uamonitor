@@ -1,6 +1,6 @@
 import wretch from 'wretch';
 import type { Wretcher, WretcherError } from 'wretch';
-import { dev, browser } from '$app/env';
+import { dev, browser } from '$app/environment';
 
 const handleError = (err: WretcherError) =>
   browser && alert(err.json.message || err.json.error || err.message);
