@@ -10,6 +10,7 @@
   import Markdown from './Markdown.svelte';
   import { theme } from '$lib/stores';
   import { onMount } from 'svelte';
+  import Card from './Card.svelte';
 
   const config: HighChartsOptions = {
     credits: undefined,
@@ -139,9 +140,7 @@
   // onMount(() => window.onresize = () => config.);
 </script>
 
-<div
-  class="rounded-xl h-64 flex flex-col dark:bg-neutral-900 bg-white dark:border-gray-900 border-zinc-200 border dark:text-slate-200 shadow-lg"
->
+<Card>
   <div class="min-w-max basis-3/5 px-4 p-4 flex flex-row">
     <div class="basis-2/3 flex flex-row items-center gap-6">
       <a class="w-24 rounded-lg" href="#" on:click={() => (isModalOpen = true)}>
@@ -221,7 +220,7 @@
     </div>
   </div>
   <div class="relative min-w-max basis-2/5 rounded-lg chart" use:highcharts={config} />
-</div>
+</Card>
 
 {#if !embed}
   <Modal bind:open={isModalOpen} title={server.name} type="server" server_id={server.id}>
