@@ -161,7 +161,7 @@
           {server.name}
         </h1>
         <div
-          class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-300 shadow-md"
+          class="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-200 shadow-md"
         >
           <p class="text-sm hidden sm:block dark:text-black">
             {server.ip}{server.port !== '25565' ? `:${server.port}` : ''}

@@ -16,6 +16,8 @@ export const load: PageLoad = async ({ fetch }) => {
     .badRequest(e => ({ error: e, status: 500 }))
     .json<GraphServer[]>();
 
+  console.log(servers[0]?.data);
+
   const serversData = await Promise.all(
     servers.map((server: GraphServer, i: number) =>
       api()

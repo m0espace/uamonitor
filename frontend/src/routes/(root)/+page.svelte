@@ -13,27 +13,15 @@
   else parsedServers = data.servers;
 </script>
 
-<div class="fixed w-14 bottom-5 left-5  z-50 flex flex-col">
-  <a
-    href="#"
-    class="transition ease-in-out delay-50 rounded-lg bg-zinc-300 h-14 flex justify-center items-center hover:bg-zinc-400"
-    on:click={() => (visible = !visible)}
-    use:tippy={{
-      content: visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн',
-      animation: 'shift-away-extreme'
-    }}
-  >
-    <img
-      class="w-8 h-8"
-      src={visible ? '/img/hide.svg' : '/img/show.svg'}
-      alt={visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн'}
-    />
-  </a>
-</div>
-
 <div class="mx-2 md:mx-24 flex flex-col gap-8">
   {#each parsedServers as server}
     <ServerCard {server} />
   {/each}
+  <a
+    on:click={() => (visible = !visible)}
+    href="#"
+    class="transition ease-in-out delay-50 rounded-lg bg-zinc-200 h-14 flex justify-center items-center hover:bg-zinc-400 text-black"
+    >{visible ? 'Сховати сервери офлайн' : 'Показати сервери офлайн'}</a
+  >
 </div>
 <!-- <h1 class="text-3xl font-bold underline">Hello world!</h1> -->
