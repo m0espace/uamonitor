@@ -1,6 +1,5 @@
 export interface GraphPointData {
-  isOnline: boolean;
-  onlineCount: number;
+  online: number;
   date: string;
 }
 

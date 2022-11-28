@@ -17,6 +17,11 @@
     exporting: {
       enabled: false
     },
+    boost: {
+      useGPUTranslations: true
+      // Chart-level boost when there are more than 5 series in the chart
+      // seriesThreshold: 1
+    },
     chart: {
       //styledMode: true,
       backgroundColor: $theme === 'dark' ? 'var(--color-neutral-900)' : '#ffffff',
@@ -109,12 +114,13 @@
     series: [
       {
         type: 'area',
+        // boostThreshold: 1,
         data: server.graph.data
           .map(data => [
             `${new Date(data.date).toLocaleDateString('uk-UA', { weekday: 'long' })} ${new Date(
               data.date
             ).getDate()}, ${new Date(data.date).getHours()}:${new Date(data.date).getMinutes()}`,
-            data.onlineCount
+            data.online
           ])
           .reverse()
       }

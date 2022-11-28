@@ -35,10 +35,9 @@ export default async (server: FastifyInstance) =>
         id: serverDB.id,
         data: statuses
           .filter(status => status.serverId === serverDB.id)
-          .map(({ isOnline, onlineCount, date }) => ({
-            isOnline,
-            onlineCount: !onlineCount ? 0 : onlineCount,
-            date
+          .map(({ onlineCount, date }) => ({
+            date,
+            online: !onlineCount ? 0 : onlineCount
           }))
       };
     });

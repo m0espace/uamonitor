@@ -33,15 +33,14 @@ export default async (server: FastifyInstance) =>
       })
     ).filter(stat => stat.date.getMinutes() % 10 === 0);
     // console.log(statuses);
-    return {
+
+    reply.send({
       id: serverDB?.id,
       data: statuses
         .filter(status => status.serverId === serverDB?.id)
-        .map(({ isOnline, onlineCount, date }) => ({
-          isOnline,
-          onlineCount: !onlineCount ? 0 : onlineCount,
-          date
+        .map(({ onlineCount, date }) => ({
+          date,
+          online: !onlineCount ? 0 : onlineCount
         }))
-    };
-    reply.send(statuses);
+    });
   });
