@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Server } from '$lib/types';
+  import type { GraphServer, Server } from '$lib/types';
   import type { Options as HighChartsOptions } from 'highcharts';
   import highcharts from '$lib/highcharts';
 
@@ -11,6 +11,8 @@
   import { theme } from '$lib/stores';
   import { onMount } from 'svelte';
   import Card from './Card.svelte';
+  import { browser, dev } from '$app/environment';
+  import api from '$lib/api';
 
   const config: HighChartsOptions = {
     credits: undefined,
@@ -20,7 +22,7 @@
     boost: {
       useGPUTranslations: true
       // Chart-level boost when there are more than 5 series in the chart
-      // seriesThreshold: 1
+      //seriesThreshold: 1
     },
     chart: {
       //styledMode: true,
@@ -115,14 +117,7 @@
       {
         type: 'area',
         // boostThreshold: 1,
-        data: server.graph.data
-          .map(data => [
-            `${new Date(data.date).toLocaleDateString('uk-UA', { weekday: 'long' })} ${new Date(
-              data.date
-            ).getDate()}, ${new Date(data.date).getHours()}:${new Date(data.date).getMinutes()}`,
-            data.online
-          ])
-          .reverse()
+        data: []
       }
     ]
   };
@@ -143,11 +138,33 @@
         $theme === 'dark' ? 'var(--color-slate-600)' : 'var(--color-neutral-900)')
   );
 
-  // onMount(() => window.onresize = () => config.);
+  onMount(async () => {
+    server.graph = await api()
+      .polyfills({ fetch })
+      .url(
+        dev
+          ? `http://127.0.0.1:8080/api/graph/${server.id}`
+          : `${browser ? '' : 'http://stats.m0e.space'}/api/graph/${server.id}`,
+        true
+      )
+      .get()
+      // .badRequest(e => ({ error: e, status: 500 }))
+      .json<GraphServer>();
+    config.series &&
+      config.series[0].type === 'area' &&
+      (config.series[0].data = server.graph.data
+        .map(data => [
+          `${new Date(data.date).toLocaleDateString('uk-UA', { weekday: 'long' })} ${new Date(
+            data.date
+          ).getDate()}, ${new Date(data.date).getHours()}:${new Date(data.date).getMinutes()}`,
+          data.online
+        ])
+        .reverse());
+  });
 </script>
 
 <Card>
-  <div class="min-w-max basis-3/5 px-4 p-4 flex flex-row">
+  <div class="min-w-max basis-3/5 p-4 flex flex-row">
     <div class="basis-2/3 flex flex-row items-center gap-6">
       <a class="w-24 rounded-lg" href="#" on:click={() => (isModalOpen = true)}>
         <img class="" src={server.icon ? server.icon : '/favicon.png'} alt="{server.name} icon" />

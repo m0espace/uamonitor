@@ -3,7 +3,6 @@
   import './body.css';
   import { theme } from '$lib/stores';
   import { browser } from '$app/environment';
-
   $: browser && (document.documentElement.className = $theme);
 </script>
 
