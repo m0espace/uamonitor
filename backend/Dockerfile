@@ -10,7 +10,7 @@ RUN npm i
 
 COPY ./.env ./
 
-COPY ./prisma/schema.prisma ./
+COPY ./prisma ./
 
 RUN npm run generate
 
