@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 
 const cookieSettings: CookieSerializeOptions = {
   httpOnly: true,
-  path: '/auth/refresh_token',
+  path: '/api/auth/refresh_token',
   sameSite: 'strict',
   maxAge: 2629800, //1 month
   secure: process.env.NODE_ENV === 'production'

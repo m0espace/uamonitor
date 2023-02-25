@@ -42,3 +42,12 @@ export interface Server {
 export interface ParsedServer extends Server {
   graph: GraphServer;
 }
+
+export interface User {
+  id: string;
+  tokenVersion: number;
+  name: string;
+  servers: Server[];
+  chatId: number;
+  telegramCode: string;
+}

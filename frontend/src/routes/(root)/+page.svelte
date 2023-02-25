@@ -5,6 +5,9 @@
   import type { GraphServer, Server } from '$lib/types';
   import { onMount } from 'svelte';
   import api from '$lib/api';
+  import auth, { type AuthData } from '$lib/auth';
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
 
   const servers = api()
     .polyfills({ fetch })
@@ -24,6 +27,20 @@
         (a: Server, b: Server) => b.statuses[0]?.onlineCount - a.statuses[0]?.onlineCount
       )
     );
+
+  onMount(() => {
+    if (!$auth && $page.url.searchParams.has('code'))
+      api(false)
+        .url('auth/discord')
+        .options({ credentials: 'include' })
+        .post({ code: $page.url.searchParams.get('code') })
+        .badRequest(() => goto('/'))
+        .json<AuthData>()
+        .then(data => {
+          auth.set(data);
+          goto('/');
+        });
+  });
 
   // export let data: PageData;
   let visible: boolean = false;

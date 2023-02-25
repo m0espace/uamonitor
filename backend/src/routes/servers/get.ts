@@ -30,6 +30,11 @@ export default async (server: FastifyInstance) =>
           discord: true,
           telegram: true,
           youtube: true,
+          user: {
+            select: {
+              id: true
+            }
+          },
           statuses: {
             orderBy: {
               date: 'desc'

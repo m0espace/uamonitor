@@ -2,7 +2,16 @@
   import '../../app.css';
   import './body.css';
   import { theme } from '$lib/stores';
-  import { browser } from '$app/environment';
+  import { browser, dev } from '$app/environment';
+  import api, { logOut, refreshToken } from '$lib/api';
+  import { page } from '$app/stores';
+  import auth from '$lib/auth';
+  import Button from '$lib/components/Button.svelte';
+  import type { User } from '$lib/types';
+  import { goto } from '$app/navigation';
+
+  browser && !($page.url.searchParams.has('code') && $page.url.pathname === '') && refreshToken();
+  const getUser = () => api(true).url('user').get().json<User>();
   $: browser && (document.documentElement.className = $theme);
 </script>
 
@@ -19,14 +28,7 @@
     </a>
     <a href="/about" class="focusable text-blue-500">Про сайт</a>
   </div>
-  <div class="basis-2/3 float-right flex flex-row-reverse gap-3">
-    <a href="https://github.com/Andrmist/uamonitor" class="focusable h-8 w-8"
-      ><img
-        class="w-full h-full"
-        src={$theme === 'dark' ? 'img/github_light.svg' : '/img/github.svg'}
-        alt="Github"
-      /></a
-    >
+  <div class="basis-2/3 float-right flex flex-row justify-end items-center gap-3">
     <a
       href="#"
       class="focusable h-8 w-8"
@@ -37,6 +39,34 @@
         alt="Github"
       /></a
     >
+    <a href="https://github.com/Andrmist/uamonitor" class="focusable h-8 w-8"
+      ><img
+        class="w-full h-full"
+        src={$theme === 'dark' ? 'img/github_light.svg' : '/img/github.svg'}
+        alt="Github"
+      /></a
+    >
+    {#if $auth?.user}
+      {#await getUser() then user}
+        <a
+          class="before:content-['|'] before:mr-2 before:text-stone-600 text-black dark:text-white font-bold"
+          href="/settings"
+        >
+          {user.name}
+        </a>
+        <Button
+          class="dark:bg-red-600 dark:hover:bg-red-700 bg-red-600 hover:bg-red-700 text-white"
+          on:click={() => logOut().then(() => goto('/'))}>Вийти</Button
+        >
+      {/await}
+    {:else}
+      <Button
+        class="bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white"
+        href={`https://discord.com/api/oauth2/authorize?client_id=1078782002704175156&redirect_uri=${
+          dev ? 'http://127.0.0.1:5173/' : 'https://stats.m0e.space/'
+        }&response_type=code&scope=identify`}>Логін</Button
+      >
+    {/if}
   </div>
 </header>
 
@@ -51,6 +81,6 @@
     ></strong
   >
 </div>
-<div class="mt-4">
+<div class="mt-4 flex flex-col gap-2">
   <slot />
 </div>

@@ -30,7 +30,7 @@ export default async (server: FastifyInstance) =>
             redirect_uri:
               process.env.NODE_ENV === 'production'
                 ? 'https://stats.m0e.space/'
-                : 'http://127.0.0.1:3000/',
+                : 'http://127.0.0.1:5173/',
             code: req.body.code
             /* eslint-enable */
           }).toString(),
@@ -66,7 +66,7 @@ export default async (server: FastifyInstance) =>
         (await server.db.user.create({
           data: {
             id,
-            discordName: username
+            name: username
           }
         }));
       if (!user) return reply.send(new Error());

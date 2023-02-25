@@ -49,7 +49,7 @@ const server = fastify({
   .addHook('onRoute', route => console.log(route.url))
   .register(fastifySchedule)
   .register(fastifyCors, {
-    origin: ['http://127.0.0.1:3000'],
+    origin: ['http://127.0.0.1:5173'],
     credentials: true
   })
   .decorate('user', null)
@@ -99,7 +99,7 @@ telegram.onText(/\/start (.+)/, async (msg, match) => {
         chatId: msg.chat.id
       }
     });
-    telegram.sendMessage(msg.chat.id, `Вітаємо! Профіль ${userDB.discordName} приєднано!`);
+    telegram.sendMessage(msg.chat.id, `Вітаємо! Профіль ${userDB.name} приєднано!`);
   } catch (e) {
     telegram.sendMessage(
       msg.chat.id,

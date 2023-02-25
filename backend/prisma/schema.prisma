@@ -38,7 +38,7 @@ model Status {
 model User {
   id           String   @id
   tokenVersion Int      @default(0)
-  discordName  String   @default("Anon")
+  name         String   @default("Anon")
   servers      Server[]
   chatId       Int?
   telegramCode String   @unique @default(uuid())

@@ -1,7 +1,5 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
-import { page } from '$app/stores';
-import url from 'url';
 
 export const theme = writable(
   (browser && localStorage.getItem('theme')) ||

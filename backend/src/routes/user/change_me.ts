@@ -4,7 +4,6 @@ import { FastifyInstance } from 'fastify';
 const schema = {
   body: {
     type: 'object',
-    required: ['name'],
     properties: {
       name: { type: 'string' }
     }
@@ -22,7 +21,7 @@ export default async (server: FastifyInstance) =>
         .update({
           where: { id: req.user.id },
           data: {
-            discordName: req.body.name
+            name: req.body.name
           }
         })
         .then(() => reply.send())

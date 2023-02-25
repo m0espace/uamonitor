@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
 export default async (server: FastifyInstance) =>
   server.post('/refresh_token', async (req, reply) => {
     const refreshToken = req.cookies.uwu ?? null;
-    if (!refreshToken) return reply.code(401).send({ error: 'Cookie or is missing' });
+    if (!refreshToken) return reply.code(401).send({ error: 'Cookie is missing' });
     try {
       const { id, tokenVersion } = verify(refreshToken, process.env.JWT_REFRESH_SECRET) as User,
         user = await server.db.user.findUnique({

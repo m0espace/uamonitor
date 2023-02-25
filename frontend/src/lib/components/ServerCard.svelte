@@ -5,7 +5,7 @@
 
   export let server: Server;
   import tippy from 'svelte-tippy';
-  import Button from '$lib/components/Button.svelte';
+  import ButtonSVG from '$lib/components/ButtonSVG.svelte';
   import Modal from './Modal.svelte';
   import Markdown from './Markdown.svelte';
   import { theme } from '$lib/stores';
@@ -217,27 +217,31 @@
       {/if}
       <div class="flex flex-row gap-2 drop-shadow-md">
         {#if server.link}
-          <Button svg="/img/link.svg" href={server.link} target="blank" />
+          <ButtonSVG svg="/img/link.svg" href={server.link} target="blank" />
         {/if}
         {#if server.telegram}
-          <Button svg="/img/telegram.svg" href={`https://t.me/${server.telegram}`} target="blank" />
+          <ButtonSVG
+            svg="/img/telegram.svg"
+            href={`https://t.me/${server.telegram}`}
+            target="blank"
+          />
         {/if}
         {#if server.discord}
-          <Button
+          <ButtonSVG
             svg="/img/discord.svg"
             href={`https://discord.gg/${server.discord}`}
             target="blank"
           />
         {/if}
         {#if server.youtube}
-          <Button
+          <ButtonSVG
             svg="/img/youtube.svg"
             href={`https://discord.gg/${server.discord}`}
             target="blank"
           />
         {/if}
         {#if server.description}
-          <Button svg="/img/info.svg" href="#" on:click={() => (isModalOpen = true)} />
+          <ButtonSVG svg="/img/info.svg" href="#" on:click={() => (isModalOpen = true)} />
         {/if}
       </div>
     </div>
