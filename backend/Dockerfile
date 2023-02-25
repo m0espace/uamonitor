@@ -10,8 +10,6 @@ COPY ./.env ./
 
 COPY ./prisma/schema.prisma ./
 
-RUN npm run migrate
-
 RUN npm run generate
 
 COPY . .
@@ -20,4 +18,4 @@ RUN npm run build
 
 EXPOSE 8080
 
-CMD ["node", "dist"]
+ENTRYPOINT [ "./entrypoint.sh" ]
