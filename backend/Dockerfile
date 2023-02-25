@@ -1,4 +1,6 @@
-FROM node:18-alpine
+FROM node:18.12.1-alpine3.16
+
+# RUN apk add --update libc6-compat openssl openssl-dev
 
 WORKDIR /app
 
