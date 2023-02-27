@@ -197,18 +197,18 @@
       </div>
     </div>
     <div class="basis-1/3 flex flex-col items-end flex-wrap grow-0 relative gap-1">
-      {#if server.statuses[0]?.isOnline}
+      {#if server.isOnline}
         <p class="flex flex-row gap-2">
           Онлайн <span class="block w-4 h-4 mt-1 circle pulse bg-green-600" />
         </p>
         <p class="text-slate-600 dark:text-slate-400">
-          {server.statuses[0]?.onlineCount}/{server.statuses[0]?.maxOnline}
+          {server.onlineCount}/{server.maxOnline}
         </p>
         <p
           class="text-slate-600 dark:text-slate-400 inline-block truncate w-0 min-w-full text-right"
-          use:tippy={{ content: server.statuses[0]?.version }}
+          use:tippy={{ content: server.version || '' }}
         >
-          {server.statuses[0]?.version}
+          {server.version}
         </p>
       {:else}
         <p class="flex flex-row gap-2 mb-5">

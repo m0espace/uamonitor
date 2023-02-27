@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts}', 'node_modules/preline/dist/*.js'],
   theme: {
     extend: {}
   },
@@ -7,6 +7,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
+    require('preline/plugin'),
     function ({ addBase, theme }) {
       function extractColorVars(colorObj, colorGroup = '') {
         return Object.keys(colorObj).reduce((vars, colorKey) => {

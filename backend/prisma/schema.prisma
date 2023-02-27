@@ -22,6 +22,10 @@ model Server {
   description String?
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
+  isOnline    Boolean  @default(false)
+  onlineCount Int?
+  maxOnline   Int?
+  version     String?
 }
 
 model Status {

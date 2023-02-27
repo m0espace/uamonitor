@@ -41,15 +41,19 @@ export default async (server: FastifyInstance) =>
                   date: true
                 }
               });
-              if (serverDB.icon !== res.favicon && serverDB.changeIcon)
-                await server.db.server.update({
-                  where: {
-                    id: serverDB.id
-                  },
-                  data: {
-                    icon: res.favicon
-                  }
-                });
+              await server.db.server.update({
+                where: {
+                  id: serverDB.id
+                },
+                data: {
+                  icon:
+                    serverDB.icon !== res.favicon && serverDB.changeIcon ? res.favicon : undefined,
+                  isOnline: true,
+                  onlineCount: res.players.online,
+                  maxOnline: res.players.max,
+                  version: res.version.name
+                }
+              });
               return {
                 id: serverDB.id,
                 data: statusDB
@@ -64,6 +68,14 @@ export default async (server: FastifyInstance) =>
                       id: serverDB.id
                     }
                   },
+                  isOnline: false
+                }
+              });
+              await server.db.server.update({
+                where: {
+                  id: serverDB.id
+                },
+                data: {
                   isOnline: false
                 }
               });

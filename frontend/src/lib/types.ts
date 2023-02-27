@@ -36,6 +36,10 @@ export interface Server {
   discord: string;
   youtube: string;
   statuses: Status[];
+  isOnline: true;
+  onlineCount: number | null;
+  maxOnline: number | null;
+  version: string | null;
   graph: GraphServer;
 }
 

@@ -109,7 +109,7 @@ telegram.onText(/\/start (.+)/, async (msg, match) => {
 });
 
 server
-  .listen(process.env.PORT || 8080, '0.0.0.0')
+  .listen({ host: '0.0.0.0', port: process.env.PORT || 8080 })
   // eslint-disable-next-line no-console
   .then(() => console.log('Server Started'))
   // eslint-disable-next-line no-console
