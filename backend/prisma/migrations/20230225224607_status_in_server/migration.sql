@@ -6,5 +6,4 @@
 */
 -- AlterTable
 ALTER TABLE "Server" ADD COLUMN     "maxOnline" INTEGER,
-ADD COLUMN     "onlineCount" INTEGER,
-ADD COLUMN     "version" INTEGER NOT NULL;
+ADD COLUMN     "onlineCount" INTEGER;
