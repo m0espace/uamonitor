@@ -23,9 +23,12 @@
     })
     .json<Server[]>()
     .then(servers =>
-      servers.sort(
-        (a: Server, b: Server) => b.statuses[0]?.onlineCount - a.statuses[0]?.onlineCount
-      )
+      servers
+        .filter(server => server.onlineCount)
+        .sort((a: Server, b: Server) =>
+          a.onlineCount && b.onlineCount ? b.onlineCount - a.onlineCount : 0
+        )
+        .concat(servers.filter(server => !server.onlineCount))
     );
 
   onMount(() => {

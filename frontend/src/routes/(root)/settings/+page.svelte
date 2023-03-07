@@ -105,7 +105,7 @@
             )}>Створити</Button
         >
       </div>
-      {#if servers.length > 0}
+      {#if $servers.length > 0}
         <div class="hs-accordion-group">
           <div class="hs-accordion active" id="hs-basic-with-title-and-arrow-stretched-heading-one">
             <button
