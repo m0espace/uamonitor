@@ -8,8 +8,13 @@
   }
 
   body {
-    @apply w-[45rem] dark:bg-zinc-800;
+    @apply max-w-[45rem] dark:bg-zinc-800 pb-10;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  a {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246 / var(--tw-text-opacity)) !important;
   }
 }

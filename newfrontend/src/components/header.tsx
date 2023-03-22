@@ -7,7 +7,11 @@ const Header = () => {
   const imgRef = useRef<HTMLImageElement>(null);
   const gitRef = useRef<HTMLImageElement>(null);
 
-  const [theme, setTheme] = useState<string>('light');
+  const [theme, setTheme] = useState<string>('');
+
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') || 'light');
+  }, []);
 
   useEffect(() => {
     if (imgRef.current && gitRef.current) {
