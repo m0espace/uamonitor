@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { useState, useEffect, useRef } from 'react';
+import { setTheme } from '@/slices/themeSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+
+import { useEffect, useRef } from 'react';
 
 const Header = () => {
   const imgRef = useRef<HTMLImageElement>(null);
   const gitRef = useRef<HTMLImageElement>(null);
 
-  const [theme, setTheme] = useState<string>('');
-
-  useEffect(() => {
-    setTheme(localStorage.getItem('theme') || 'light');
-  }, []);
+  const theme = useAppSelector((state) => state.theme.theme);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (imgRef.current && gitRef.current) {
@@ -29,10 +29,10 @@ const Header = () => {
 
   function handlerTheme() {
     if (theme == 'light') {
-      setTheme('dark');
+      dispatch(setTheme('dark'));
       localStorage.setItem('theme', 'dark');
     } else {
-      setTheme('light');
+      dispatch(setTheme('light'));
       localStorage.setItem('theme', 'light');
     }
   }
@@ -81,9 +81,9 @@ const Header = () => {
         <a
           href="https://discord.com/api/oauth2/authorize?client_id=1078782002704175156&amp;redirect_uri=https://stats.m0e.space/&amp;response_type=code&amp;scope=identify"
           target=""
-          className="transition ease-in-out delay-50 px-4 py-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 text-black dark:text-white dark:bg-neutral-600 flex justify-center items-center dark:hover:bg-neutral-700 bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white"
+          className=" transition ease-in-out delay-50 px-4 py-2 rounded-lg bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-600 flex justify-center items-center dark:hover:bg-neutral-700 "
         >
-          Логін
+          <span className="text-black dark:text-white">Логін</span>
         </a>
       </div>
     </header>

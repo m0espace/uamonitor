@@ -1,20 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer {
-  html {
-    @apply w-full;
-  }
+html {
+  @apply w-full;
+}
 
-  body {
-    @apply max-w-[45rem] dark:bg-zinc-800 pb-10;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
+body {
+  @apply max-w-[45rem] dark:bg-zinc-800 pb-10 mx-auto;
+  font-family: 'Noto Sans', sans-serif !important;
+  font-weight: 500;
+}
 
-  a {
-    --tw-text-opacity: 1;
-    color: rgb(59 130 246 / var(--tw-text-opacity)) !important;
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.2);
   }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 255, 0, 0);
+  }
+}
+
+.circle {
+  border-radius: 50%;
+  box-shadow: 0px 0px 1px 1px #0000001a;
+}
+.pulse {
+  animation: pulse-animation 2s infinite;
+}
+
+.chart {
+  touch-action: none;
+}
+
+dialog[open] {
+  animation: show 1s ease normal;
+}
+
+@keyframes show {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+a {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
 }

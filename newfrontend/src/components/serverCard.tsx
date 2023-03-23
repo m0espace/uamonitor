@@ -1,33 +1,33 @@
-import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import { Options as HighChartsOptions } from 'highcharts';
+import { GraphServer } from '../interfaces';
 
-import { GraphServer, GraphPointData } from '@/interfaces';
+import { useAppSelector } from '@/hooks';
+import { useRef } from 'react';
+import { Server } from '../interfaces';
 
 if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts);
 }
 
-const ServerCard = () => {
-  const [theme, setTheme] = useState('dark');
-  const [graph, setGraph] = useState<GraphServer[]>([]);
+interface Props {
+  server: Server;
+}
+
+const ServerCard = (props: Props) => {
+  const { server } = props;
+  const theme = useAppSelector((state) => state.theme.theme);
+  const graph = useAppSelector((state) => state.graphData.data);
 
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('https://stats.m0e.space/api/graph', {
-        mode: 'cors',
-      });
-      const data = await response.json();
-      console.log(data);
-      setGraph(data);
-    }
-    fetchData();
-  }, []);
+  const neededGraph: GraphServer[] = graph.filter(
+    (graph) => graph.id === server.id
+  );
 
   const config: HighChartsOptions = {
     credits: undefined,
@@ -35,7 +35,6 @@ const ServerCard = () => {
       enabled: false,
     },
     chart: {
-      //styledMode: true,
       backgroundColor: theme === 'dark' ? '#171717' : '#ffffff',
       spacing: [0, 0, 0, 0],
       height: 98,
@@ -118,14 +117,13 @@ const ServerCard = () => {
       backgroundColor: theme === 'dark' ? '#475569' : '#171717',
       style: {
         color: '#FFFFFF',
-        // fontWeight: 'bold',
         fontSize: '14px',
       },
     },
     series: [
       {
         type: 'area',
-        data: graph[0]?.data
+        data: neededGraph[0]?.data
           .map((data) => [
             `${new Date(data.date).toLocaleDateString('uk-UA', {
               weekday: 'long',
@@ -140,12 +138,132 @@ const ServerCard = () => {
   };
 
   return (
-    <div>
-      <HighchartsReact
-        options={config}
-        highcharts={Highcharts}
-        ref={chartComponentRef}
-      />
+    <div className="overflow-hidden mt-5 rounded-xl h-63 flex flex-col dark:bg-neutral-900 bg-white dark:border-gray-900 border-zinc-200 border dark:text-slate-200 shadow-lg">
+      <div className="min-w-max basis-3/5 p-4 flex flex-row">
+        <div className="basis-2/3 flex flex-row items-center gap-6">
+          {server.icon ? (
+            <a className="w-24 rounded-lg" href="#">
+              <Image
+                unoptimized
+                src={server.icon}
+                width={96}
+                height={96}
+                className=""
+                alt={`${server.name} icon`}
+              />
+            </a>
+          ) : (
+            <a className="w-24 rounded-lg" href="#">
+              <Image
+                unoptimized
+                src={'favicon.png'}
+                width={96}
+                height={96}
+                className=""
+                alt={`${server.name} icon`}
+              />
+            </a>
+          )}
+          <div className="flex flex-col w-full gap-2">
+            <h1 className="font-bold text-lg truncate w-0 min-w-full drop-shadow-none">
+              {server.name}
+            </h1>
+            <div className="w-11 sm:w-fit transition flex ease-in-out delay-50 p-2 bg-gray-200 rounded-md flex-row gap-2 items-center justify-center hover:bg-zinc-200 shadow-md">
+              <p className="text-sm hidden sm:block dark:text-black">
+                {server.ip}
+              </p>
+              <input
+                className="sm:w-5 sm:h-5 w-7 h-7 "
+                type="image"
+                src="/img/clipboard.svg"
+                value={server.link}
+                alt="Копіювати до буферу обміну"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="basis-1/3 flex flex-col items-end flex-wrap grow-0 relative gap-1">
+          {server.isOnline ? (
+            <div>
+              <p className="flex flex-row gap-2">
+                {'Онлайн'}
+                <span className="block w-4 h-4 mt-1 circle pulse bg-green-600" />
+              </p>
+              <p className="text-slate-600 dark:text-slate-400">
+                {server.onlineCount || 0}/{server.maxOnline || 0}
+              </p>
+            </div>
+          ) : (
+            <p className="flex flex-row gap-2 mb-5">
+              {'Офлайн'}
+              <span className="block w-4 h-4 mt-1 circle pulse bg-red-600" />
+            </p>
+          )}
+
+          <p className="text-slate-600 dark:text-slate-400 inline-block truncate w-0 min-w-full text-right">
+            {server.version}
+          </p>
+          <div className="flex flex-row gap-2 drop-shadow-md">
+            {server.telegram && (
+              <div className="w-10 h-10 flex flex-col ">
+                <a
+                  href={'https://t.me/' + server.telegram}
+                  target="blank"
+                  className="transition ease-in-out delay-50 rounded-lg bg-zinc-200 h-14 flex justify-center items-center hover:bg-zinc-400 "
+                >
+                  <Image
+                    width={32}
+                    height={32}
+                    className="w-6 h-6"
+                    src="/img/telegram.svg"
+                    alt=""
+                  />
+                </a>
+              </div>
+            )}
+            {server.discord && (
+              <div className="w-10 h-10 flex flex-col ">
+                <a
+                  href={server.discord}
+                  target="blank"
+                  className="transition ease-in-out delay-50 rounded-lg bg-zinc-200 h-14 flex justify-center items-center hover:bg-zinc-400 "
+                >
+                  <Image
+                    width={32}
+                    height={32}
+                    className="w-6 h-6"
+                    src="/img/discord.svg"
+                    alt=""
+                  />
+                </a>
+              </div>
+            )}
+            <div className="w-10 h-10 flex flex-col ">
+              <a
+                href="#"
+                target=""
+                className="transition ease-in-out delay-50 rounded-lg bg-zinc-200 h-14 flex justify-center items-center hover:bg-zinc-400 "
+              >
+                <Image
+                  width={32}
+                  height={32}
+                  className="w-6 h-6"
+                  src="/img/info.svg"
+                  alt=""
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <HighchartsReact
+          options={config}
+          highcharts={Highcharts}
+          ref={chartComponentRef}
+        />
+      </div>
     </div>
   );
 };

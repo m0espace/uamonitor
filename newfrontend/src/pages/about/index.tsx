@@ -15,7 +15,7 @@ export default function About() {
       <Telgeram />
       <div className="mt-4 flex flex-col gap-2">
         <div className="mx-4 about dark:text-white">
-          <h1 className="font-black text-2xl md:text-xl">
+          <h1 className="font-black text-2xl">
             Безкоштовний моніторинг українських серверів
           </h1>{' '}
           <p className="text-lg md:text-base mt-4">
@@ -36,7 +36,7 @@ export default function About() {
             }
             <span className="italic">(Колись ще реалізую автооновлення)</span>.
           </p>{' '}
-          <p className="mt-4 text-lg md:text-base">
+          <p className="mt-4 text-lg">
             Вихідний код знаходиться
             <a href="https://github.com/Andrmist/uamonitor"> тут</a>. Серверна
             частина реалізована на
@@ -50,7 +50,7 @@ export default function About() {
             ласкаво прошу
             <a href="https://github.com/Andrmist/uamonitor/pulls">сюди</a>.
           </p>{' '}
-          <p className="mt-4 text-lg md:text-base">
+          <p className="mt-4 text-lg">
             Проект створений в першу чергу для розвитку своїх навичок в бекенді
             та фронтенді а також щоб просунути українські сервери майнкрафт у
             інфопростір нашої країни. Сайт натхненний російськомовним аналогом
@@ -60,7 +60,7 @@ export default function About() {
           <h1 className="font-black text-2xl md:text-xl mt-4 mb-4">
             Бажаєте додати/видалити свій сервер або змінити інформацію?
           </h1>{' '}
-          <p className="text-lg md:text-base">
+          <p className="text-lg">
             Надішліть повідомлення у{' '}
             <a className="" href="https://t.me/Andrmist">
               Telegram

@@ -35,6 +35,22 @@ export interface Server {
   telegram: string;
   discord: string;
   youtube: string;
+  isOnline: true;
+  onlineCount: number;
+  maxOnline: number;
+  version: string;
+}
+export interface OldServer {
+  id: number;
+  name: string;
+  description: string;
+  ip: string;
+  port: string;
+  icon: string;
+  link: string;
+  telegram: string;
+  discord: string;
+  youtube: string;
   statuses: Status[];
   graph: GraphServer;
 }
