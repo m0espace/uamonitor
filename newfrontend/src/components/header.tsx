@@ -49,9 +49,9 @@ const Header = () => {
             height={40}
           />
         </Link>{' '}
-        <a href="/about" className="focusable text-blue-500">
+        <Link href="/about" className="focusable text-blue-500">
           Про сайт
-        </a>
+        </Link>
       </div>
       <div className="basis-2/3 float-right flex flex-row justify-end items-center gap-3">
         <a href="#" className="focusable h-8 w-8">

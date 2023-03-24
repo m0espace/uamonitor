@@ -1,3 +1,6 @@
+import { Provider } from 'react-redux';
+import { store } from '@/store';
+
 import { useEffect } from 'react';
 import Image from 'next/image';
 
@@ -10,7 +13,7 @@ export default function About() {
   }, []);
 
   return (
-    <div>
+    <Provider store={store}>
       <Header />
       <Telgeram />
       <div className="mt-4 flex flex-col gap-2">
@@ -49,7 +52,7 @@ export default function About() {
             фронтенду) може бути гівном, тому для вирішення цього непорозуміння
             ласкаво прошу
             <a href="https://github.com/Andrmist/uamonitor/pulls">сюди</a>.
-          </p>{' '}
+          </p>
           <p className="mt-4 text-lg">
             Проект створений в першу чергу для розвитку своїх навичок в бекенді
             та фронтенді а також щоб просунути українські сервери майнкрафт у
@@ -69,6 +72,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </div>
+    </Provider>
   );
 }

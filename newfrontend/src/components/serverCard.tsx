@@ -7,8 +7,9 @@ import { Options as HighChartsOptions } from 'highcharts';
 import { GraphServer } from '../interfaces';
 
 import { useAppSelector } from '@/hooks';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Server } from '../interfaces';
+import Modal from './modal';
 
 if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts);
@@ -23,7 +24,13 @@ const ServerCard = (props: Props) => {
   const theme = useAppSelector((state) => state.theme.theme);
   const graph = useAppSelector((state) => state.graphData.data);
 
+  const [isModalActive, setIsModalActive] = useState(false);
+
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
+
+  const handleCopyClick = async () => {
+    await navigator.clipboard.writeText(server.ip);
+  };
 
   const neededGraph: GraphServer[] = graph.filter(
     (graph) => graph.id === server.id
@@ -142,7 +149,11 @@ const ServerCard = (props: Props) => {
       <div className="min-w-max basis-3/5 p-4 flex flex-row">
         <div className="basis-2/3 flex flex-row items-center gap-6">
           {server.icon ? (
-            <a className="w-24 rounded-lg" href="#">
+            <a
+              className="w-24 rounded-lg"
+              href="#"
+              onClick={() => setIsModalActive(!isModalActive)}
+            >
               <Image
                 unoptimized
                 src={server.icon}
@@ -153,7 +164,11 @@ const ServerCard = (props: Props) => {
               />
             </a>
           ) : (
-            <a className="w-24 rounded-lg" href="#">
+            <a
+              className="w-24 rounded-lg"
+              href="#"
+              onClick={() => setIsModalActive(!isModalActive)}
+            >
               <Image
                 unoptimized
                 src={'favicon.png'}
@@ -172,11 +187,12 @@ const ServerCard = (props: Props) => {
               <p className="text-sm hidden sm:block dark:text-black">
                 {server.ip}
               </p>
-              <input
-                className="sm:w-5 sm:h-5 w-7 h-7 "
-                type="image"
+              <Image
+                width={28}
+                height={28}
+                className="sm:w-5 sm:h-5 w-7 h-7 cursor-pointer"
+                onClick={handleCopyClick}
                 src="/img/clipboard.svg"
-                value={server.link}
                 alt="Копіювати до буферу обміну"
               />
             </div>
@@ -264,6 +280,17 @@ const ServerCard = (props: Props) => {
           ref={chartComponentRef}
         />
       </div>
+
+      {isModalActive && (
+        <Modal
+          handler={setIsModalActive}
+          server={{
+            id: server.id,
+            name: server.name,
+            description: server.description,
+          }}
+        />
+      )}
     </div>
   );
 };

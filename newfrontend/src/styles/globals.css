@@ -34,10 +34,6 @@ body {
   touch-action: none;
 }
 
-dialog[open] {
-  animation: show 1s ease normal;
-}
-
 @keyframes show {
   from {
     transform: translateY(-50%);

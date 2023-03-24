@@ -11,7 +11,6 @@ const nextConfig = {
   },
   images: {
     domains: ['crafatar.com'],
-    loader: ({ src }) => src,
     remotePatterns: [
       {
         protocol: 'https',
